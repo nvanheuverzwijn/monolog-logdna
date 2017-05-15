@@ -10,3 +10,11 @@ $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'my-local-
 $logger->pushHandler($logdnaHandler); 
 $logger->debug("message");
 ```
+
+## Test
+
+To test the project, simply call `make` or `make test`. Everything runs in docker container.
+
+## Clean
+
+To clean your system, call `make clean`. Take note that if you use the same docker images as this project, you might not want to clean. Read the `Makefile` for more information.
