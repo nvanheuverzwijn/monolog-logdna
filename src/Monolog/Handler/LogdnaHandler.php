@@ -84,7 +84,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
         $headers = ['Content-Type: application/json'];
         $data = $record["formatted"];
 
-        $url = \sprintf("https://logs.logdna.com/logs/ingest?hostname=%s&mac=%s&ip=%s&now=%s", $this->hostname, $this->mac, $this->ip, $date->getTimestamp());
+        $url = \sprintf("https://logs.logdna.com/logs/ingest?hostname=%s&mac=%s&ip=%s&now=%s", $this->hostname, $this->mac, $this->ip, $record['datetime']->getTimestamp());
 
         \curl_setopt($this->curl_handle, CURLOPT_URL, $url);
         \curl_setopt($this->curl_handle, CURLOPT_USERPWD, "$this->ingestion_key:");
