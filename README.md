@@ -6,10 +6,36 @@ Monolog backend for logdna.
 
 ```
 $logger = new \Monolog\Logger('general');
-$logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'my-local-crm-handler', \Monolog\Logger::DEBUG);
+$logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'myappname', \Monolog\Logger::DEBUG);
 $logger->pushHandler($logdnaHandler); 
 $logger->debug("message");
 ```
+
+## Live Example
+
+Create the following php script `test.php`. Don't forget to set the ingestion key prior to running this script.
+
+```
+<?php
+
+include './vendor/autoload.php';
+
+$INGESTION_KEY='';
+\date_default_timezone_set('America/Montreal');
+
+$logger = new \Monolog\Logger('general');
+$logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler($INGESTION_KEY, 'appname', \Monolog\Logger::DEBUG);
+$logger->pushHandler($logdnaHandler);
+$logger->debug('mylog');
+```
+
+Execute it with the following docker command.
+
+```
+docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:5.6-cli php test.php
+```
+
+You should see the log 'mylog' with debug level in the logdna account for which the ingestion key is bound to.
 
 ## Test
 
