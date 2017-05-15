@@ -2,6 +2,10 @@
 
 Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/docs/api).
 
+## Install
+
+Install with compose `composer require nvanheuverzwijn/monolog-logdna`.
+
 ## Usage
 
 ```
