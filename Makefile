@@ -1,7 +1,7 @@
 .PHONY: all test composer clean clean-docker-image clean-composer-vendor
 
-composer = composer/composer:php5-alpine
-phpcli = php:5.6-cli
+composer = composer/composer:alpine
+phpcli = php:7
 
 all: composer test
 
@@ -17,4 +17,4 @@ clean-docker-image:
 	docker rmi $(composer) $(phpcli)
 
 clean-composer-vendor:
-	docker run --rm -v ${PWD}:/app composer/composer:php5-alpine exec "rm -rf vendor"
+	docker run --rm -v ${PWD}:/app ${composer} exec "rm -rf vendor"
