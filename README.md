@@ -1,6 +1,6 @@
 # [LogDNA](https://logdna.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
 
-Monolog backend for logdna.
+Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/docs/api).
 
 ## Usage
 
@@ -8,7 +8,15 @@ Monolog backend for logdna.
 $logger = new \Monolog\Logger('general');
 $logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'myappname', \Monolog\Logger::DEBUG);
 $logger->pushHandler($logdnaHandler); 
-$logger->debug("message");
+
+# Sends debug level message "mylog" with some related meta-data
+$logger->debug(
+  "mylog",
+  [
+    'logdna-meta-data-field1' => ['value1' => 'value', 'value2' => 5],
+    'logdna-meta-data-field2' => ['value1' => 'value']
+  ]
+);
 ```
 
 ## Live Example
