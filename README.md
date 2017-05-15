@@ -49,6 +49,10 @@ docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:5.6-cli php
 
 You should see the log 'mylog' with debug level in the logdna account for which the ingestion key is bound to.
 
+## License
+
+This project is licensed under LGPL3.0. See `LICENSE` file for details.
+
 ## Test
 
 To test the project, simply call `make` or `make test`. Everything runs in docker container.
