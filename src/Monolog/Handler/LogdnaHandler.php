@@ -3,8 +3,9 @@
 namespace Zwijn\Monolog\Handler;
 
 /**
- * Sends log to Logdna
+ * Sends log to Logdna. This handler uses logdna's ingestion api.
  *
+ * @see https://docs.logdna.com/docs/api
  * @author Nicolas Vanheuverzwijn
  */
 class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
@@ -14,18 +15,36 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
      */
     private $ingestion_key;
 
+    /**
+     * @var string $hostname
+     */
     private $hostname;
 
+    /**
+     * @var string $ip
+     */
     private $ip = '';
 
+    /**
+     * @var string $mac
+     */
     private $mac = '';
 
+    /**
+     * @var resource $curl_handle
+     */
     private $curl_handle;
 
+    /**
+     * @param string $value
+     */
     public function setIP($value) {
         $this->ip = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setMAC($value) {
         $this->mac = $value;
     }
@@ -35,8 +54,6 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
      * @param string $hostname
      * @param int $level
      * @param bool $bubble
-     *
-     * @see https://docs.logdna.com/docs/api
      */
     public function __construct($ingestion_key, $hostname, $level = \Monolog\Logger::DEBUG, $bubble = true) {
         parent::__construct($level, $bubble);
@@ -50,6 +67,9 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
         $this->curl_handle = \curl_init();
     }
 
+    /**
+     * @param array $record
+     */
     protected function write(array $record) {
         $date = new \DateTime();
         $headers = ['Content-Type: application/json'];
@@ -68,6 +88,9 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
         \Monolog\Handler\Curl\Util::execute($this->curl_handle);
     }
 
+    /**
+     * @return \Zwijn\Monolog\Formatter\LogdnaFormatter
+     */
     protected function getDefaultFormatter() {
         return new \Zwijn\Monolog\Formatter\LogdnaFormatter();
     }
