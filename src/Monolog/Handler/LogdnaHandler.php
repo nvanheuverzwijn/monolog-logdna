@@ -20,6 +20,8 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
 
     private $mac = '';
 
+    private $curl_handle;
+
     public function setIP($value) {
         $this->ip = $value;
     }
@@ -45,6 +47,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
 
         $this->ingestion_key = $ingestion_key;
         $this->hostname = $hostname;
+        $this->curl_handle = \curl_init();
     }
 
     protected function write(array $record) {
@@ -52,18 +55,17 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
         $headers = ['Content-Type: application/json'];
         $data = $record["formatted"];
 
-        $url = sprintf("https://logs.logdna.com/logs/ingest?hostname=%s&mac=%s&ip=%s&now=%s", $this->hostname, $this->mac, $this->ip, $date->getTimestamp());
+        $url = \sprintf("https://logs.logdna.com/logs/ingest?hostname=%s&mac=%s&ip=%s&now=%s", $this->hostname, $this->mac, $this->ip, $date->getTimestamp());
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERPWD, "$this->ingestion_key:");
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        \curl_setopt($this->curl_handle, CURLOPT_URL, $url);
+        \curl_setopt($this->curl_handle, CURLOPT_USERPWD, "$this->ingestion_key:");
+        \curl_setopt($this->curl_handle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        \curl_setopt($this->curl_handle, CURLOPT_POST, true);
+        \curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, $data);
+        \curl_setopt($this->curl_handle, CURLOPT_HTTPHEADER, $headers);
+        \curl_setopt($this->curl_handle, CURLOPT_RETURNTRANSFER, true);
 
-        \Monolog\Handler\Curl\Util::execute($ch);
+        \Monolog\Handler\Curl\Util::execute($this->curl_handle);
     }
 
     protected function getDefaultFormatter() {
