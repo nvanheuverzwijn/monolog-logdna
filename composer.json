@@ -4,7 +4,7 @@
     "keywords": ["log", "logging", "psr-3", "logdna"],
     "homepage": "http://github.com/nvanheuverzwijn/monolog-logdna",
     "type": "library",
-    "license": "LGPL3.0",
+    "license": "LGPL-3.0-only",
     "authors": [
         {
             "name": "Nicolas Vanheuverzwijn",
