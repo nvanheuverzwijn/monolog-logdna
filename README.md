@@ -53,6 +53,10 @@ You should see the log 'mylog' with debug level in the logdna account for which 
 
 This project is licensed under LGPL3.0. See `LICENSE` file for details.
 
+## Versions
+
+Version 1.x is php5 compatible version while 2.x is php7.
+
 ## Test
 
 To test the project, simply call `make` or `make test`. Everything runs in docker container.
