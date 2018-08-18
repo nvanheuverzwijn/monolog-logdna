@@ -11,6 +11,9 @@ test: composer
 composer:
 	docker run --rm -v ${CURDIR}:/app -v ~/.ssh:/root/.ssh $(composer) install
 
+composer-update: composer
+	docker run --rm -v ${CURDIR}:/app -v ~/.ssh:/root/.ssh $(composer) update
+
 clean: clean-composer-vendor clean-docker-image
 
 clean-docker-image:
