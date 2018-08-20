@@ -80,7 +80,6 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
      * @param array $record
      */
     protected function write(array $record) {
-        $date = new \DateTime();
         $headers = ['Content-Type: application/json'];
         $data = $record["formatted"];
 
