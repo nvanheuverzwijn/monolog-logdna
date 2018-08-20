@@ -1,6 +1,6 @@
 # [LogDNA](https://logdna.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
 
-Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/docs/api).
+Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/v1.0/reference#api).
 
 ## Install
 
