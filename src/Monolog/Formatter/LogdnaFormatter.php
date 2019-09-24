@@ -17,11 +17,11 @@ namespace Zwijn\Monolog\Formatter;
  */
 class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
 
-    public function __construct($batchMode = self::BATCH_MODE_NEWLINES, $appendNewline = false) {
+    public function __construct($batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false) {
         parent::__construct($batchMode, $appendNewline);
     }
 
-    public function format(array $record) {
+    public function format(array $record): string {
         $date = new \DateTime();
 
         $json = [
