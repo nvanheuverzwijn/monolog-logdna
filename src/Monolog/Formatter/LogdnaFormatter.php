@@ -21,7 +21,7 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
         parent::__construct($batchMode, $appendNewline);
     }
 
-    public function format(array $record) {
+    public function format(array $record): string {
         $date = new \DateTime();
 
         $json = [
