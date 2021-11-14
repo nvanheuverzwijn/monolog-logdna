@@ -2,19 +2,24 @@
 
 namespace Zwijn\Monolog\Formatter;
 
-class LogdnaFormatterTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class LogdnaFormatterTest extends TestCase
+{
 
     /**
      * @var \Zwijn\Monolog\Formatter\LogdnaFormatter
      */
     private $logdnaFormatter = null;
 
-    protected function setUp() {
+    protected function setUp(): void
+    {
         parent::setUp();
         $this->logdnaFormatter = new \Zwijn\Monolog\Formatter\LogdnaFormatter();
     }
 
-    public function testFormatAccordingToLogdnaStandard() {
+    public function testFormatAccordingToLogdnaStandard()
+    {
         $record = $this->getRecord();
         $json = $this->logdnaFormatter->format($record);
         $decoded_json = \json_decode($json, true);
@@ -27,7 +32,8 @@ class LogdnaFormatterTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    private function getRecord(){
+    private function getRecord()
+    {
         return [
             'message' => 'some message',
             'context' => [],

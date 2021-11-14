@@ -11,13 +11,16 @@
 
 namespace Zwijn\Monolog\Handler;
 
+use Monolog\Formatter\FormatterInterface;
+
 /**
  * Sends log to Logdna. This handler uses logdna's ingestion api.
  *
  * @see https://docs.logdna.com/docs/api
  * @author Nicolas Vanheuverzwijn
  */
-class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
+class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
+{
 
     /**
      * @var string $ingestion_key
@@ -54,7 +57,8 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
     /**
      * @param string $value
      */
-    public function setMAC($value) {
+    public function setMAC($value)
+    {
         $this->mac = $value;
     }
 
@@ -64,10 +68,12 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
      * @param int $level
      * @param bool $bubble
      */
-    public function __construct($ingestion_key, $hostname, $level = \Monolog\Logger::DEBUG, $bubble = true) {
+    public function __construct($ingestion_key, $hostname, $level = \Monolog\Logger::DEBUG, $bubble = true)
+    {
         parent::__construct($level, $bubble);
 
-        if (!\extension_loaded('curl')) {
+        if (!\extension_loaded('curl'))
+        {
             throw new \LogicException('The curl extension is needed to use the LogdnaHandler');
         }
 
@@ -79,7 +85,8 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
     /**
      * @param array $record
      */
-    protected function write(array $record) {
+    protected function write(array $record):void
+    {
         $headers = ['Content-Type: application/json'];
         $data = $record["formatted"];
 
@@ -99,7 +106,8 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
     /**
      * @return \Zwijn\Monolog\Formatter\LogdnaFormatter
      */
-    protected function getDefaultFormatter() {
+    protected function getDefaultFormatter(): FormatterInterface
+    {
         return new \Zwijn\Monolog\Formatter\LogdnaFormatter();
     }
 }
