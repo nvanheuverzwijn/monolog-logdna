@@ -1,10 +1,11 @@
 # [LogDNA](https://logdna.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
 
 Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/v1.0/reference#api).
+An update version for Monolog 2.3 and PHP 8 of this project: [https://github.com/nvanheuverzwijn/monolog-logdna](https://github.com/nvanheuverzwijn/monolog-logdna)
 
 ## Install
 
-Install with compose `composer require nvanheuverzwijn/monolog-logdna`.
+Install with composer `composer require mattsmithdev/monolog-logdna`.
 
 ## Usage
 
@@ -53,14 +54,7 @@ You should see the log 'mylog' with debug level in the logdna account for which 
 
 This project is licensed under LGPL3.0. See `LICENSE` file for details.
 
-## Versions
 
-Version 1.x is php5 compatible version while 2.x is php7.
+## Other
 
-## Test
-
-To test the project, simply call `make` or `make test`. Everything runs in docker container.
-
-## Clean
-
-To clean your system, call `make clean`. Take note that if you use the same docker images as this project, you might not want to clean. Read the `Makefile` for more information.
+have fun .. matt ..

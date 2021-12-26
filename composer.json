@@ -1,5 +1,5 @@
 {
-    "name": "nvanheuverzwijn/monolog-logdna",
+    "name": "mattsmithdev/monolog-logdna",
     "description": "Logdna handler for Monolog",
     "keywords": ["log", "logging", "psr-3", "logdna"],
     "homepage": "http://github.com/nvanheuverzwijn/monolog-logdna",
@@ -7,8 +7,8 @@
     "license": "LGPL-3.0-only",
     "authors": [
         {
-            "name": "Nicolas Vanheuverzwijn",
-            "email": "nicolas.vanheu@gmail.com"
+            "name": "Matt Smith",
+            "email": "dr_matt_smith@me.com"
         }
     ],
     "require": {
@@ -17,14 +17,5 @@
     },
     "autoload": {
         "psr-4": {"Zwijn\\Monolog\\": "src/Monolog"}
-    },
-    "autoload-dev": {
-        "psr-4": {"Zwijn\\Monolog\\": "tests/Monolog"}
-    },
-    "scripts": {
-        "test": "phpunit"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
     }
 }
