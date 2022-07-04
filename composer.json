@@ -1,7 +1,7 @@
 {
     "name": "nvanheuverzwijn/monolog-logdna",
-    "description": "Logdna handler for Monolog",
-    "keywords": ["log", "logging", "psr-3", "logdna"],
+    "description": "Mezmo/Logdna handler for Monolog",
+    "keywords": ["log", "logging", "psr-3", "logdna", "mezmo"],
     "homepage": "http://github.com/nvanheuverzwijn/monolog-logdna",
     "type": "library",
     "license": "LGPL-3.0-only",

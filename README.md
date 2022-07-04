@@ -1,6 +1,6 @@
-# [LogDNA](https://logdna.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
+# [Mezmo/LogDNA](https://mezmo.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
 
-Monolog backend for logdna. This backend use logdna [ingestion api](https://docs.logdna.com/v1.0/reference#api).
+Monolog backend for mezmo/logdna. This backend use mezmo/logdna [ingestion api](https://docs.mezmo.com/reference/ingest#api).
 
 ## Install
 
@@ -47,7 +47,7 @@ Execute it with the following docker command.
 docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:8-cli php test.php
 ```
 
-You should see the log 'mylog' with debug level in the logdna account for which the ingestion key is bound to.
+You should see the log 'mylog' with debug level in the mezmo/logdna account for which the ingestion key is bound to.
 
 ## License
 
