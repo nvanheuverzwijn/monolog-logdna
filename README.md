@@ -55,7 +55,7 @@ This project is licensed under LGPL3.0. See `LICENSE` file for details.
 
 ## Versions
 
-Version 1.x is php5 compatible version while 2.x is php7.
+Version 1.x is php5 compatible version while 2.x is php7 and php8 since 2.2.
 
 ## Test
 
