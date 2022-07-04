@@ -44,7 +44,7 @@ $logger->debug('mylog');
 Execute it with the following docker command.
 
 ```
-docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:7-cli php test.php
+docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:8-cli php test.php
 ```
 
 You should see the log 'mylog' with debug level in the logdna account for which the ingestion key is bound to.
@@ -55,7 +55,9 @@ This project is licensed under LGPL3.0. See `LICENSE` file for details.
 
 ## Versions
 
-Version 1.x is php5 compatible version while 2.x is php7 and php8 since 2.2.
+1.x is php5 with monolog 1.
+2.x is php7 and php8 with monolog 2.
+3.x is php8 with monolog 3.
 
 ## Test
 

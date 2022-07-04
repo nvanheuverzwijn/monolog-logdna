@@ -1,7 +1,7 @@
 .PHONY: all test composer clean clean-docker-image clean-composer-vendor
 
-composer = composer:1.9
-phpcli = php:7
+composer = composer:2
+phpcli = php:8
 
 all: composer test
 

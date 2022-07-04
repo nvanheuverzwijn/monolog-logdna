@@ -17,25 +17,24 @@ namespace Zwijn\Monolog\Formatter;
  */
 class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
 
-    public function __construct($batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false) {
-        parent::__construct($batchMode, $appendNewline);
+    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = false, bool $includeStacktraces = false) {
+        parent::__construct($batchMode, $appendNewline, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
-    public function format(array $record): string {
+    protected function normalizeRecord(\Monolog\LogRecord $record): array {
         $date = new \DateTime();
 
         $json = [
             'lines' => [
                 [
                     'timestamp' => $date->getTimestamp(),
-                    'line' => $record['message'],
-                    'app' => $record['channel'],
-                    'level' => $record['level_name'],
-                    'meta' => $record['context']
+                    'line' => $record->message,
+                    'app' => $record->channel,
+                    'level' => $record->level->toPsrLogLevel(),
+                    'meta' => $record->context
                 ]
             ]
         ];
-
-        return parent::format($json);
+        return $json;
     }
 }
