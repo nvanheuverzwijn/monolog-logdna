@@ -44,7 +44,7 @@ $logger->debug('mylog');
 Execute it with the following docker command.
 
 ```
-docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:5.6-cli php test.php
+docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:7-cli php test.php
 ```
 
 You should see the log 'mylog' with debug level in the logdna account for which the ingestion key is bound to.
