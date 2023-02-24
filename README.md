@@ -56,7 +56,9 @@ This project is licensed under LGPL3.0. See `LICENSE` file for details.
 ## Versions
 
 1.x is php5 with monolog 1.
+
 2.x is php7 and php8 with monolog 2.
+
 3.x is php8 with monolog 3.
 
 ## Test
