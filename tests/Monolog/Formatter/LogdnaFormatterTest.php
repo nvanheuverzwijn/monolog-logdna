@@ -28,8 +28,14 @@ class LogdnaFormatterTest extends TestCase
         $this->assertEquals($decoded_json['lines'][0]['line'], $record->message);
         $this->assertEquals($decoded_json['lines'][0]['app'], $record->channel);
         $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
-        $this->assertEquals($decoded_json['lines'][0]['meta'], $record->context);
-
+        $this->assertEquals($decoded_json['lines'][0]['meta'], [
+            'exception' => [
+                'class' => \Exception::class,
+                'message' => 'This is a test exception',
+                'code' => 42,
+                'file' => __FILE__ . ':48',
+            ],
+        ]);
     }
 
     private function getRecord(): \Monolog\LogRecord
@@ -39,7 +45,7 @@ class LogdnaFormatterTest extends TestCase
             'name',
             \Monolog\Level::Debug,
             'some message',
-
+            ['exception' => new \Exception('This is a test exception', 42)],
         );
     }
 
