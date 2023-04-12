@@ -33,8 +33,9 @@ class LogdnaFormatterTest extends TestCase
                 'class' => \Exception::class,
                 'message' => 'This is a test exception',
                 'code' => 42,
-                'file' => __FILE__ . ':48',
+                'file' => __FILE__ . ':' . __LINE__ + 13,
             ],
+            'foo' => 'bar',
         ]);
     }
 
@@ -45,7 +46,7 @@ class LogdnaFormatterTest extends TestCase
             'name',
             \Monolog\Level::Debug,
             'some message',
-            ['exception' => new \Exception('This is a test exception', 42)],
+            ['exception' => new \Exception('This is a test exception', 42), 'foo' => 'bar'],
         );
     }
 
