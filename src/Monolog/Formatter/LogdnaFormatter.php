@@ -35,6 +35,7 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
                 ]
             ]
         ];
-        return $json;
+
+        return $this->normalize($json);
     }
 }
