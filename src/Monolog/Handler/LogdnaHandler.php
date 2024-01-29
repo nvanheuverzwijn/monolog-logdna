@@ -42,6 +42,11 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
     private $mac = '';
 
     /**
+     * @var string $tags
+     */
+    private $tags = '';
+
+    /**
      * @var resource $curl_handle
      */
     private $curl_handle;
@@ -58,6 +63,13 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
      */
     public function setMAC($value) {
         $this->mac = $value;
+    }
+
+    /**
+     * @param string $tags
+     */
+    public function setTags($tags) {
+        $this->tags = $tags;
     }
 
     /**
@@ -85,7 +97,13 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler {
         $headers = ['Content-Type: application/json'];
         $data = $record->formatted;
 
-        $url = \sprintf("https://logs.logdna.com/logs/ingest?hostname=%s&mac=%s&ip=%s&now=%s", $this->hostname, $this->mac, $this->ip, $record->datetime->getTimestamp());
+        $query = [
+            'hostname' => $this->hostname,
+            'mac' => $this->mac,
+            'ip' => $this->ip,
+            'tags' => $this->tags
+        ];
+        $url = 'https://logs.logdna.com/logs/ingest?' . \http_build_query(\array_filter($query));
 
         \curl_setopt($this->curl_handle, CURLOPT_URL, $url);
         \curl_setopt($this->curl_handle, CURLOPT_USERPWD, "$this->ingestion_key:");
