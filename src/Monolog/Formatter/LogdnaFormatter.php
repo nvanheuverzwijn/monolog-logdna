@@ -31,11 +31,24 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
                     'line' => $record->message,
                     'app' => $record->channel,
                     'level' => $record->level->toPsrLogLevel(),
-                    'meta' => $record->context
-                ]
-            ]
+                    'meta' => $this->getMetadata($record),
+                ],
+            ],
         ];
 
         return $this->normalize($json);
+    }
+
+    protected function getMetadata(\Monolog\LogRecord $record): array {
+        $meta = [
+            'context' => $record->context,
+            'extra' => $record->extra,
+        ];
+
+        if ($this->ignoreEmptyContextAndExtra) {
+            $meta = \array_filter($meta);
+        }
+
+        return $meta;
     }
 }
