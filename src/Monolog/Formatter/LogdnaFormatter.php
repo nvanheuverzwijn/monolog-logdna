@@ -17,7 +17,19 @@ namespace Zwijn\Monolog\Formatter;
  */
 class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
 
-    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = false, bool $includeStacktraces = false) {
+    /**
+     * @var callable(array,array):array
+     */
+    private $metadataMapper;
+
+    public function __construct(
+        int $batchMode = self::BATCH_MODE_NEWLINES,
+        bool $appendNewline = false,
+        bool $ignoreEmptyContextAndExtra = false,
+        bool $includeStacktraces = false,
+        callable|null $metadataMapper = null,
+    ) {
+        $this->metadataMapper = $metadataMapper ?: LogdnaMetadataMapper::nested();
         parent::__construct($batchMode, $appendNewline, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
