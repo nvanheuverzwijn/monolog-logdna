@@ -36,6 +36,8 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
     protected function normalizeRecord(\Monolog\LogRecord $record): array {
         $date = new \DateTime();
 
+        $metadataMapper = $this->metadataMapper;
+
         $json = [
             'lines' => [
                 [
@@ -43,7 +45,7 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
                     'line' => $record->message,
                     'app' => $record->channel,
                     'level' => $record->level->toPsrLogLevel(),
-                    'meta' => $record->context
+                    'meta' => $metadataMapper($record->context, $record->extra)
                 ]
             ]
         ];
