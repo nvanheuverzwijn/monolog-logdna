@@ -17,7 +17,7 @@ namespace Zwijn\Monolog\Formatter;
  */
 class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
 
-    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = false, bool $includeStacktraces = false) {
+    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = true, bool $includeStacktraces = false) {
         parent::__construct($batchMode, $appendNewline, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
@@ -31,11 +31,21 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
                     'line' => $record->message,
                     'app' => $record->channel,
                     'level' => $record->level->toPsrLogLevel(),
-                    'meta' => $record->context
+                    'meta' => $this->getMetadata($record)
                 ]
             ]
         ];
 
         return $this->normalize($json);
+    }
+
+    protected function getMetadata(\Monolog\LogRecord $record): array {
+        $meta = $record->context;
+        if ($record->extra) {
+            $meta['monolog_extra'] = $record->extra;
+        } elseif (!$this->ignoreEmptyContextAndExtra) {
+            $meta['monolog_extra'] = new \stdClass();
+        }
+        return $meta;
     }
 }
