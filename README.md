@@ -74,3 +74,7 @@ To test the project, simply call `make` or `make test`. Everything runs in docke
 ## Clean
 
 To clean your system, call `make clean`. Take note that if you use the same docker images as this project, you might not want to clean. Read the `Makefile` for more information.
+
+## Code Checks
+
+To check for code smells, run `make cs-check`. To fix them, either do it manually or run `make cs-fix`.

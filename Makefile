@@ -21,3 +21,9 @@ clean-docker-image:
 
 clean-composer-vendor:
 	docker run --rm -v ${PWD}:/app ${composer} exec "rm -rf vendor"
+
+cs-check: composer
+	docker run -it --rm -v "${CURDIR}":/usr/src/myapp -w /usr/src/myapp ${phpcli} php ./vendor/bin/phpcs --standard=PSR12 src tests
+
+cs-fix: composer
+	docker run -it --rm -v "${CURDIR}":/usr/src/myapp -w /usr/src/myapp ${phpcli} php ./vendor/bin/phpcbf --standard=PSR12 src tests
