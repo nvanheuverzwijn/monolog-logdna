@@ -18,9 +18,16 @@ class LogdnaFormatterTest extends TestCase
         $this->logdnaFormatter = new \Zwijn\Monolog\Formatter\LogdnaFormatter();
     }
 
-    public function testFormatAccordingToLogdnaStandard()
+    public function testFormatWithExceptionInContext(): void
     {
-        $record = $this->getRecord();
+        $record = new \Monolog\LogRecord(
+            new \DateTimeImmutable(),
+            'name',
+            \Monolog\Level::Debug,
+            'some message',
+            ['exception' => new \Exception('This is a test exception', 42), 'foo' => 'bar'],
+        );
+
         $json = $this->logdnaFormatter->format($record);
         $decoded_json = \json_decode($json, true);
 
@@ -33,21 +40,53 @@ class LogdnaFormatterTest extends TestCase
                 'class' => \Exception::class,
                 'message' => 'This is a test exception',
                 'code' => 42,
-                'file' => __FILE__ . ':' . __LINE__ + 13,
+                'file' => __FILE__ . ':' . __LINE__ - 15,
             ],
             'foo' => 'bar',
         ]);
     }
 
-    private function getRecord(): \Monolog\LogRecord
+    public function testFormatWithRecordExtra(): void
     {
-        return new \Monolog\LogRecord(
+        $record = new \Monolog\LogRecord(
             new \DateTimeImmutable(),
             'name',
             \Monolog\Level::Debug,
             'some message',
-            ['exception' => new \Exception('This is a test exception', 42), 'foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['processors' => 'extra'],
         );
+
+        $json = $this->logdnaFormatter->format($record);
+        $decoded_json = \json_decode($json, true);
+
+        $this->assertArrayHasKey('lines', $decoded_json);
+        $this->assertEquals($decoded_json['lines'][0]['line'], $record->message);
+        $this->assertEquals($decoded_json['lines'][0]['app'], $record->channel);
+        $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
+        $this->assertEquals($decoded_json['lines'][0]['meta'], [
+            'foo' => 'bar',
+            'monolog.extra' => ['processors' => 'extra'],
+        ]);
+    }
+
+    public function testFormatEmptyContextAndExtra(): void
+    {
+        $record = new \Monolog\LogRecord(
+            new \DateTimeImmutable(),
+            'name',
+            \Monolog\Level::Debug,
+            'some message',
+        );
+
+        $json = $this->logdnaFormatter->format($record);
+        $decoded_json = \json_decode($json, true);
+
+        $this->assertArrayHasKey('lines', $decoded_json);
+        $this->assertEquals($decoded_json['lines'][0]['line'], $record->message);
+        $this->assertEquals($decoded_json['lines'][0]['app'], $record->channel);
+        $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
+        $this->assertEquals($decoded_json['lines'][0]['meta'], []);
     }
 
 }
