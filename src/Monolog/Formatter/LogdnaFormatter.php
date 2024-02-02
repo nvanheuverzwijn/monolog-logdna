@@ -17,7 +17,14 @@ namespace Zwijn\Monolog\Formatter;
  */
 class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
 
-    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = false, bool $includeStacktraces = false) {
+    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $includeStacktraces = false) {
+        /**
+         * The value is ignored in this implementation and effectively does nothing in the parent.
+         * We can set it to anything and this formatter would be functionally equivalent.
+         * Although semantically this formatter behaves as if it was true,
+         * we set it to false to skip a few useless instructions in the parent implementation.
+         */
+        $ignoreEmptyContextAndExtra = false;
         parent::__construct($batchMode, $appendNewline, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
