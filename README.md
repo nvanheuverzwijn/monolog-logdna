@@ -49,6 +49,12 @@ docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:8-cli php t
 
 You should see the log 'mylog' with debug level in the mezmo/logdna account for which the ingestion key is bound to.
 
+## Using with Monolog Processors
+
+Monolog Processors may add some extra data to the log records.
+This data will appear in logdna log metadata as property `monolog.extra` unless it is empty.
+If such a property already exists in the log record's `context`, it will be overwritten.
+
 ## License
 
 This project is licensed under LGPL3.0. See `LICENSE` file for details.
