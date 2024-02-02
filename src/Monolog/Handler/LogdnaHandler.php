@@ -108,7 +108,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
             'ip' => $this->ip,
             'tags' => $this->tags
         ];
-        $url = 'https://logs.logdna.com/logs/ingest?' . \http_build_query(\array_filter($query));
+        $url = 'https://logs.mezmo.com/logs/ingest?' . \http_build_query(\array_filter($query));
 
         \curl_setopt($this->curl_handle, CURLOPT_URL, $url);
         \curl_setopt($this->curl_handle, CURLOPT_USERPWD, "$this->ingestion_key:");
