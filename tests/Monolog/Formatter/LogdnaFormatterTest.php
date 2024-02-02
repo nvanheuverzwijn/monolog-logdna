@@ -66,7 +66,7 @@ class LogdnaFormatterTest extends TestCase
         $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
         $this->assertEquals($decoded_json['lines'][0]['meta'], [
             'foo' => 'bar',
-            'monolog.extra' => ['processors' => 'extra'],
+            'monolog_extra' => ['processors' => 'extra'],
         ]);
     }
 

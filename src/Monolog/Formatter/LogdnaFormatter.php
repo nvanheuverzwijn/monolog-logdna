@@ -42,7 +42,7 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
     protected function getMetadata(\Monolog\LogRecord $record): array {
         $meta = $record->context;
         if ($record->extra) {
-            $meta['monolog.extra'] = $record->extra;
+            $meta['monolog_extra'] = $record->extra;
         }
         return $meta;
     }

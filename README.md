@@ -52,7 +52,7 @@ You should see the log 'mylog' with debug level in the mezmo/logdna account for 
 ## Using with Monolog Processors
 
 Monolog Processors may add some extra data to the log records.
-This data will appear in logdna log metadata as property `monolog.extra` unless it is empty.
+This data will appear in logdna log metadata as property `monolog_extra` unless it is empty.
 If such a property already exists in the log record's `context`, it will be overwritten.
 
 ## License
