@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class LogdnaFormatterTest extends TestCase
 {
-
     /**
      * @var \Zwijn\Monolog\Formatter\LogdnaFormatter
      */
@@ -88,5 +87,4 @@ class LogdnaFormatterTest extends TestCase
         $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
         $this->assertEquals($decoded_json['lines'][0]['meta'], []);
     }
-
 }

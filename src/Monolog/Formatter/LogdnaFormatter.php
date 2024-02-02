@@ -15,13 +15,15 @@ namespace Zwijn\Monolog\Formatter;
  * Encode records in a json format compatible with Logdna
  * @author Nicolas Vanheuverzwijn
  */
-class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
-
-    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = true, bool $includeStacktraces = false) {
+class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter
+{
+    public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = true, bool $includeStacktraces = false)
+    {
         parent::__construct($batchMode, $appendNewline, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
-    protected function normalizeRecord(\Monolog\LogRecord $record): array {
+    protected function normalizeRecord(\Monolog\LogRecord $record): array
+    {
         $date = new \DateTime();
 
         $json = [
@@ -39,7 +41,8 @@ class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter {
         return $this->normalize($json);
     }
 
-    protected function getMetadata(\Monolog\LogRecord $record): array {
+    protected function getMetadata(\Monolog\LogRecord $record): array
+    {
         $meta = $record->context;
         if ($record->extra) {
             $meta['monolog_extra'] = $record->extra;
