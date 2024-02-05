@@ -61,7 +61,7 @@ By default, the handler sends `now` parameter to the [Ingestion API](https://doc
 which is used to calculate time drift. You can disable sending this parameter via
 
 ```
-$handler->setIncludeRequestTime(false);
+$logdnaHandler->setIncludeRequestTime(false);
 ```
 
 ## License
