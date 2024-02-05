@@ -106,6 +106,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
             'hostname' => $this->hostname,
             'mac' => $this->mac,
             'ip' => $this->ip,
+            'now' => $record->datetime->getTimestamp(),
             'tags' => $this->tags
         ];
         $url = 'https://logs.mezmo.com/logs/ingest?' . \http_build_query(\array_filter($query));
