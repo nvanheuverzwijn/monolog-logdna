@@ -80,6 +80,9 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
         $this->tags = $tags;
     }
 
+    /**
+     * @param bool $include
+     */
     public function setIncludeRequestTime($include)
     {
         $this->include_request_time = $include;
@@ -120,7 +123,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
         ];
 
         if ($this->include_request_time) {
-            $query['now'] = $this->getCurrentTimeInMilliseconds();
+            $query['now'] = (string) \floor(\microtime(true) * 1000.0);
         }
 
         $url = 'https://logs.mezmo.com/logs/ingest?' . \http_build_query(\array_filter($query));
@@ -142,12 +145,5 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     protected function getDefaultFormatter(): FormatterInterface
     {
         return new \Zwijn\Monolog\Formatter\LogdnaFormatter();
-    }
-
-    private function getCurrentTimeInMilliseconds(): string
-    {
-        $time = \microtime();
-        $parts = \explode(' ', $time, 2);
-        return $parts[1] . \str_pad((string) \round(1000.0 * (float) $parts[0]), 3, '0', \STR_PAD_LEFT);
     }
 }
