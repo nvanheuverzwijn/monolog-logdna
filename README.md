@@ -55,6 +55,15 @@ Monolog Processors may add some extra data to the log records.
 This data will appear in logdna log metadata as property `monolog_extra` unless it is empty.
 If such a property already exists in the log record's `context`, it will be overwritten.
 
+## Time Drift Calculation
+
+By default, the handler sends `now` parameter to the [Ingestion API](https://docs.mezmo.com/log-analysis-api#ingest), 
+which is used to calculate time drift. You can disable sending this parameter via
+
+```
+$logdnaHandler->setIncludeRequestTime(false);
+```
+
 ## License
 
 This project is licensed under LGPL3.0. See `LICENSE` file for details.

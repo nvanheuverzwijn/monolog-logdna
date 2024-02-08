@@ -47,6 +47,11 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     private $tags = '';
 
     /**
+     * @var bool
+     */
+    private $include_request_time = true;
+
+    /**
      * @var resource $curl_handle
      */
     private $curl_handle;
@@ -73,6 +78,14 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
+
+    /**
+     * @param bool $include
+     */
+    public function setIncludeRequestTime($include)
+    {
+        $this->include_request_time = $include;
     }
 
     /**
@@ -108,6 +121,11 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
             'ip' => $this->ip,
             'tags' => $this->tags
         ];
+
+        if ($this->include_request_time) {
+            $query['now'] = (string) \floor(\microtime(true) * 1000.0);
+        }
+
         $url = 'https://logs.mezmo.com/logs/ingest?' . \http_build_query(\array_filter($query));
 
         \curl_setopt($this->curl_handle, CURLOPT_URL, $url);
