@@ -91,7 +91,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     /**
      * @param string $ingestion_key
      * @param string $hostname
-     * @param int $level
+     * @param int|string|\Monolog\Level $level
      * @param bool $bubble
      */
     public function __construct($ingestion_key, $hostname, $level = \Monolog\Logger::DEBUG, bool $bubble = true)
