@@ -52,7 +52,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     private $include_request_time = true;
 
     /**
-     * @var resource $curl_handle
+     * @var \CurlHandle $curl_handle
      */
     private $curl_handle;
 
