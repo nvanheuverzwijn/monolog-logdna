@@ -1,24 +1,24 @@
-# [Mezmo/LogDNA](https://mezmo.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
+# [Mezmo](https://mezmo.com/) handler for [Monolog](https://github.com/Seldaek/monolog)
 
-Monolog backend for mezmo/logdna. This backend use mezmo/logdna [ingestion api](https://docs.mezmo.com/reference/ingest#api).
+Monolog backend for Mezmo. This backend uses mezmo's [ingestion api](https://docs.mezmo.com/api-reference/ingestion/send-log-lines).
 
 ## Install
 
-Install with compose `composer require nvanheuverzwijn/monolog-logdna`.
+Install with composer `composer require nvanheuverzwijn/monolog-logdna`.
 
 ## Usage
 
 ```
 $logger = new \Monolog\Logger('general');
-$logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler('your-key', 'myappname', \Monolog\Logger::DEBUG);
-$logger->pushHandler($logdnaHandler); 
+$mezmoHandler = new \Zwijn\Monolog\Handler\MezmoHandler('your-key', 'myappname', \Monolog\Level::Debug);
+$logger->pushHandler($mezmoHandler);
 
 # Sends debug level message "mylog" with some related meta-data
 $logger->debug(
   "mylog",
   [
-    'logdna-meta-data-field1' => ['value1' => 'value', 'value2' => 5],
-    'logdna-meta-data-field2' => ['value1' => 'value']
+    'mezmo-meta-data-field1' => ['value1' => 'value', 'value2' => 5],
+    'mezmo-meta-data-field2' => ['value1' => 'value']
   ]
 );
 ```
@@ -36,8 +36,8 @@ $INGESTION_KEY='';
 \date_default_timezone_set('America/Montreal');
 
 $logger = new \Monolog\Logger('general');
-$logdnaHandler = new \Zwijn\Monolog\Handler\LogdnaHandler($INGESTION_KEY, 'appname', \Monolog\Logger::DEBUG);
-$logger->pushHandler($logdnaHandler);
+$mezmoHandler = new \Zwijn\Monolog\Handler\MezmoHandler($INGESTION_KEY, 'appname', \Monolog\Level::Debug);
+$logger->pushHandler($mezmoHandler);
 $logger->debug('mylog');
 ```
 
@@ -47,21 +47,22 @@ Execute it with the following docker command.
 docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp php:8-cli php test.php
 ```
 
-You should see the log 'mylog' with debug level in the mezmo/logdna account for which the ingestion key is bound to.
+You should see the log 'mylog' with debug level in the mezmo account for which the ingestion key is bound to.
+
 
 ## Using with Monolog Processors
 
 Monolog Processors may add some extra data to the log records.
-This data will appear in logdna log metadata as property `monolog_extra` unless it is empty.
+This data will appear in mezmo log metadata as property `monolog_extra` unless it is empty.
 If such a property already exists in the log record's `context`, it will be overwritten.
 
 ## Time Drift Calculation
 
-By default, the handler sends `now` parameter to the [Ingestion API](https://docs.mezmo.com/log-analysis-api#ingest), 
+By default, the handler sends `now` parameter to the [Ingestion API](https://docs.mezmo.com/api-reference/ingestion/send-log-lines),
 which is used to calculate time drift. You can disable sending this parameter via
 
 ```
-$logdnaHandler->setIncludeRequestTime(false);
+$mezmoHandler->setIncludeRequestTime(false);
 ```
 
 ## License
