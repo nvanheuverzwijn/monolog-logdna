@@ -14,12 +14,12 @@ namespace Zwijn\Monolog\Handler;
 use Monolog\Formatter\FormatterInterface;
 
 /**
- * Sends log to Logdna. This handler uses logdna's ingestion api.
+ * Sends log to Mezmo. This handler uses mezmo's ingestion api.
  *
- * @see https://docs.logdna.com/docs/api
+ * @see https://docs.mezmo.com/api-reference/ingestion/send-log-lines
  * @author Nicolas Vanheuverzwijn
  */
-class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
+class MezmoHandler extends \Monolog\Handler\AbstractProcessingHandler
 {
     /**
      * @var string $ingestion_key
@@ -99,7 +99,7 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
         parent::__construct($level, $bubble);
 
         if (!\extension_loaded('curl')) {
-            throw new \LogicException('The curl extension is needed to use the LogdnaHandler');
+            throw new \LogicException('The curl extension is needed to use the MezmoHandler');
         }
 
         $this->ingestion_key = $ingestion_key;
@@ -140,10 +140,10 @@ class LogdnaHandler extends \Monolog\Handler\AbstractProcessingHandler
     }
 
     /**
-     * @return \Zwijn\Monolog\Formatter\LogdnaFormatter
+     * @return \Zwijn\Monolog\Formatter\MezmoFormatter
      */
     protected function getDefaultFormatter(): FormatterInterface
     {
-        return new \Zwijn\Monolog\Formatter\LogdnaFormatter();
+        return new \Zwijn\Monolog\Formatter\MezmoFormatter();
     }
 }

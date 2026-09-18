@@ -12,10 +12,10 @@
 namespace Zwijn\Monolog\Formatter;
 
 /**
- * Encode records in a json format compatible with Logdna
+ * Encode records in a json format compatible with Mezmo
  * @author Nicolas Vanheuverzwijn
  */
-class LogdnaFormatter extends \Monolog\Formatter\JsonFormatter
+class MezmoFormatter extends \Monolog\Formatter\JsonFormatter
 {
     public function __construct(int $batchMode = self::BATCH_MODE_NEWLINES, bool $appendNewline = false, bool $ignoreEmptyContextAndExtra = true, bool $includeStacktraces = false)
     {

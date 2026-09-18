@@ -4,17 +4,17 @@ namespace Zwijn\Monolog\Formatter;
 
 use PHPUnit\Framework\TestCase;
 
-class LogdnaFormatterTest extends TestCase
+class MezmoFormatterTest extends TestCase
 {
     /**
-     * @var \Zwijn\Monolog\Formatter\LogdnaFormatter
+     * @var \Zwijn\Monolog\Formatter\MezmoFormatter
      */
-    private $logdnaFormatter = null;
+    private $mezmoFormatter = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->logdnaFormatter = new \Zwijn\Monolog\Formatter\LogdnaFormatter();
+        $this->mezmoFormatter = new \Zwijn\Monolog\Formatter\MezmoFormatter();
     }
 
     public function testFormatWithExceptionInContext(): void
@@ -27,7 +27,7 @@ class LogdnaFormatterTest extends TestCase
             ['exception' => new \Exception('This is a test exception', 42), 'foo' => 'bar'],
         );
 
-        $json = $this->logdnaFormatter->format($record);
+        $json = $this->mezmoFormatter->format($record);
         $decoded_json = \json_decode($json, true);
 
         $this->assertArrayHasKey('lines', $decoded_json);
@@ -56,7 +56,7 @@ class LogdnaFormatterTest extends TestCase
             ['processors' => 'extra'],
         );
 
-        $json = $this->logdnaFormatter->format($record);
+        $json = $this->mezmoFormatter->format($record);
         $decoded_json = \json_decode($json, true);
 
         $this->assertArrayHasKey('lines', $decoded_json);
@@ -78,7 +78,7 @@ class LogdnaFormatterTest extends TestCase
             'some message',
         );
 
-        $json = $this->logdnaFormatter->format($record);
+        $json = $this->mezmoFormatter->format($record);
         $decoded_json = \json_decode($json, true);
 
         $this->assertArrayHasKey('lines', $decoded_json);
