@@ -87,4 +87,19 @@ class MezmoFormatterTest extends TestCase
         $this->assertEquals($decoded_json['lines'][0]['level'], $record->level->toPsrLogLevel());
         $this->assertEquals($decoded_json['lines'][0]['meta'], []);
     }
+
+    public function testFormatTimestampIsRecordDatetimeInMilliseconds(): void
+    {
+        $record = new \Monolog\LogRecord(
+            new \DateTimeImmutable('@1764170728.123456'),
+            'name',
+            \Monolog\Level::Debug,
+            'some message',
+        );
+
+        $json = $this->mezmoFormatter->format($record);
+        $decoded_json = \json_decode($json, true);
+
+        $this->assertSame(1764170728123, $decoded_json['lines'][0]['timestamp']);
+    }
 }

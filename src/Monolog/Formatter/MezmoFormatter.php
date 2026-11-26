@@ -24,12 +24,10 @@ class MezmoFormatter extends \Monolog\Formatter\JsonFormatter
 
     protected function normalizeRecord(\Monolog\LogRecord $record): array
     {
-        $date = new \DateTime();
-
         $json = [
             'lines' => [
                 [
-                    'timestamp' => $date->getTimestamp(),
+                    'timestamp' => (int) $record->datetime->format('Uv'),
                     'line' => $record->message,
                     'app' => $record->channel,
                     'level' => $record->level->toPsrLogLevel(),
